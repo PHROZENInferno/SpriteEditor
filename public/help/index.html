@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bedienungsanleitung – ThreadCore BudStorm Sprite Editor</title>
+  <meta name="copyright" content="Copyright © 2026 ThreadCore - Mathias P.R. Hinkel. All rights reserved." />
+  <style>
+    :root{color-scheme:dark;font-family:Inter,system-ui,Segoe UI,sans-serif;background:#09090b;color:#f4f4f5}body{margin:0;background:radial-gradient(circle at top,#18181b,#09090b 45%)}main{max-width:1080px;margin:0 auto;padding:28px 16px 80px}.card{border:1px solid #27272a;background:rgba(24,24,27,.88);border-radius:24px;padding:22px;margin:18px 0;box-shadow:0 18px 50px rgba(0,0,0,.25)}h1{font-size:34px;margin:0 0 8px}h2{font-size:25px;margin:0 0 12px}h3{margin:20px 0 8px;color:#e4e4e7}.sub{color:#a1a1aa}.hero{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between;align-items:center}.btn{display:inline-flex;border:1px solid #3f3f46;background:#27272a;color:#fff;text-decoration:none;border-radius:12px;padding:10px 13px}.step-img{width:100%;border-radius:18px;border:1px solid #3f3f46;background:#09090b}ol,ul{line-height:1.7;color:#d4d4d8}code{background:#09090b;border:1px solid #27272a;border-radius:8px;padding:2px 6px;color:#a7f3d0}.warn{border-left:5px solid #f59e0b;padding:12px 14px;background:#1f2937;border-radius:12px;color:#fde68a}.ok{border-left:5px solid #10b981;padding:12px 14px;background:#052e2b;border-radius:12px;color:#a7f3d0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:800px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main>
+  <section class="card hero">
+    <div>
+      <h1>ThreadCore BudStorm Sprite Editor – Bedienungsanleitung</h1>
+      <p class="sub">Ausführliche Schritt-für-Schritt-Anleitung für PNG-Import, Farbtransparenz, automatische Hintergrundentfernung, Frames, Animationen, Pivot, Boxes und BudStorm-Export.</p>
+      <p class="sub">Copyright © 2026 ThreadCore - Mathias P.R. Hinkel. All rights reserved.</p>
+    </div>
+    <a class="btn" href="../">← Zurück zum Editor</a>
+  </section>
+
+  <section class="card">
+    <h2>0. Grundprinzip</h2>
+    <p>Der Editor läuft vollständig im Browser. Deine PNG-Dateien werden lokal geladen und lokal im Canvas verarbeitet. Der Editor erstellt daraus Frames, Animationen und Exportdaten für dein Canvas-/BudStorm-Game.</p>
+    <div class="ok">Empfohlener Workflow: <b>PNG laden → Transparenz bereinigen → Frames erzeugen/croppen → Animation bauen → Pivot/Boxes setzen → Exportieren</b>.</div>
+  </section>
+
+  <section class="card">
+    <h2>1. PNG laden</h2>
+    <img class="step-img" src="assets/step-load.svg" alt="PNG laden bebilderter Schritt" />
+    <ol>
+      <li>Klicke oben im Editor auf <code>PNG laden</code>.</li>
+      <li>Wähle dein Sprite-Sheet im PNG-Format aus.</li>
+      <li>Prüfe links im Bereich <code>Sheet</code>, ob Bildname und Bildgröße korrekt angezeigt werden.</li>
+      <li>Die <code>Asset-ID</code> wird automatisch aus dem Dateinamen erzeugt. Passe sie bei Bedarf an, bevor du exportierst.</li>
+    </ol>
+    <div class="warn">Wichtig: Für saubere Runtime-Assets immer PNG verwenden. JPG hat keine echte Transparenz und erzeugt Kompressionsartefakte.</div>
+  </section>
+
+  <section class="card">
+    <h2>2. Farbtransparenz auswählen</h2>
+    <img class="step-img" src="assets/step-transparency.svg" alt="Farbtransparenz bebilderter Schritt" />
+    <ol>
+      <li>Im Bereich <code>Transparenz / Hintergrund</code> kannst du die Transparenzfarbe manuell über das Farbfeld wählen.</li>
+      <li>Alternativ klickst du auf <code>Farbe picken</code>.</li>
+      <li>Klicke danach im Sheet-Canvas exakt auf die Hintergrundfarbe, die transparent werden soll.</li>
+      <li>Der gewählte Farbwert erscheint im Farbfeld und im Statusbericht.</li>
+    </ol>
+    <h3>Toleranz</h3>
+    <p>Die Toleranz steuert, wie stark ähnliche Farben mitentfernt werden. Kleine Werte entfernen nur exakt gleiche Farben. Große Werte entfernen auch Farbsäume und Antialiasing-Ränder.</p>
+    <ul>
+      <li><code>0–10</code>: nur sehr exakte Farben</li>
+      <li><code>20–45</code>: typische Pixelart-Hintergründe</li>
+      <li><code>50–100</code>: stärkere Farbsäume oder komprimierte Vorlagen</li>
+    </ul>
+    <h3>Soft Edge</h3>
+    <p><code>Soft Edge</code> erzeugt weicher auslaufende Alpha-Kanten. Für harte Pixelart meistens <code>0</code> lassen. Für weich gezeichnete Sprites kann <code>4–16</code> sinnvoll sein.</p>
+  </section>
+
+  <section class="card">
+    <h2>3. Automatische Hintergrundentfernung</h2>
+    <img class="step-img" src="assets/step-auto.svg" alt="Automatische Hintergrundentfernung bebilderter Schritt" />
+    <ol>
+      <li>Klicke auf <code>Auto-Hintergrund</code>.</li>
+      <li>Der Editor liest die vier Eckpixel des Bildes.</li>
+      <li>Aus diesen Ecken wird eine Hintergrundfarbe berechnet.</li>
+      <li>Alle Pixel innerhalb der eingestellten Toleranz werden transparent gesetzt.</li>
+    </ol>
+    <div class="warn">Auto-Hintergrund funktioniert am besten, wenn die vier Ecken tatsächlich Hintergrund enthalten. Wenn dort Sprite-Teile liegen, nutze besser <code>Farbe picken</code>.</div>
+    <h3>Original wiederherstellen</h3>
+    <p>Mit <code>Original</code> kannst du jederzeit zum geladenen Originalbild zurückkehren. Danach kannst du andere Toleranzen testen.</p>
+    <h3>PNG exportieren</h3>
+    <p>Mit <code>PNG exportieren</code> speicherst du das aktuell bereinigte PNG inklusive Alpha-Transparenz.</p>
+  </section>
+
+  <section class="card">
+    <h2>4. Frames erzeugen</h2>
+    <div class="grid">
+      <div>
+        <h3>Raster-Methode</h3>
+        <ol>
+          <li>Setze <code>Frame W</code> und <code>Frame H</code>.</li>
+          <li>Setze optional <code>Offset X/Y</code>, wenn das Sheet Randabstand hat.</li>
+          <li>Setze optional <code>Gap X/Y</code>, wenn zwischen Frames Abstand liegt.</li>
+          <li>Klicke auf <code>Frames aus Raster erzeugen</code>.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Drag-Crop-Methode</h3>
+        <ol>
+          <li>Wähle das Tool <code>Drag-Crop</code>.</li>
+          <li>Ziehe im Sheet-Canvas einen Rahmen um den gewünschten Frame.</li>
+          <li>Beim Loslassen wird ein neuer Frame erzeugt.</li>
+          <li>Mit <code>Select/Move</code> kannst du Frames danach verschieben und an den Ecken skalieren.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>5. Animation bauen</h2>
+    <ol>
+      <li>Lege rechts im Bereich <code>Animationen</code> eine Animation an oder nutze <code>idle</code>.</li>
+      <li>Wähle <code>Anim-Paint</code> im Sheet-Werkzeug.</li>
+      <li>Klicke Frames im Sheet an, um sie zur aktiven Animation hinzuzufügen oder zu entfernen.</li>
+      <li>Sortiere Frames in der Sequenz mit <code>↑</code> und <code>↓</code>.</li>
+      <li>Stelle <code>FPS</code> und <code>Loop</code> ein.</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>6. Preview, reine Animation und Overlays</h2>
+    <img class="step-img" src="assets/step-preview.svg" alt="Preview bebilderter Schritt" />
+    <p>In der Preview kannst du Animation, Pivot und Collision-Boxes kontrollieren. Die Hitbox/Hurtbox/Attackbox sind standardmäßig 80% transparent, damit der Sprite sichtbar bleibt.</p>
+    <h3>Reine Animation anzeigen</h3>
+    <ol>
+      <li><code>Boxes</code> ausschalten.</li>
+      <li><code>Pivot</code> ausschalten.</li>
+      <li><code>Onion</code> ausschalten.</li>
+      <li>Mit <code>Play</code> die reine Animation prüfen.</li>
+    </ol>
+    <h3>Onion-Skin</h3>
+    <p>Onion-Skin zeigt vorherige und nächste Frames halbtransparent an. Das hilft beim Timing, ist aber für die finale Animationskontrolle abschaltbar.</p>
+  </section>
+
+  <section class="card">
+    <h2>7. Pivot und Hit/Hurt/Attack-Boxes</h2>
+    <h3>Pivot setzen</h3>
+    <ol>
+      <li>Wähle das Preview-Tool <code>Pivot</code>.</li>
+      <li>Klicke oder ziehe im Preview-Canvas auf den gewünschten Ursprungspunkt.</li>
+      <li>Der Pivot wird frame-lokal in Pixeln gespeichert.</li>
+    </ol>
+    <h3>Boxes zeichnen und verschieben</h3>
+    <ol>
+      <li>Wähle links den Box-Typ: <code>hit</code>, <code>hurt</code> oder <code>attack</code>.</li>
+      <li>Wähle rechts <code>Box Draw</code>, um eine Box neu zu ziehen.</li>
+      <li>Wähle <code>Box Move</code>, um die aktive Box zu verschieben.</li>
+      <li>Ziehe an den Eckpunkten, um die Box zu skalieren.</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>8. Export</h2>
+    <ul>
+      <li><code>Projekt JSON</code>: vollständiges editierbares Projekt für spätere Nachbearbeitung.</li>
+      <li><code>BudStorm JSON</code>: Runtime-Atlas mit Frames, Pivot, Boxes und Animationen.</li>
+      <li><code>BudStorm JS</code>: eigenständige JS-Datei, die sich unter <code>window.BudStormSpriteAtlases[assetId]</code> registriert.</li>
+      <li><code>PNG</code>: aktuell bereinigtes Sprite-Sheet mit Transparenz.</li>
+      <li><code>Animation Strip PNG</code>: horizontales Strip-PNG der aktiven Animation.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>9. Online auf Synology</h2>
+    <ol>
+      <li>Projekt mit <code>npm run build:synology</code> bauen.</li>
+      <li>Den Inhalt von <code>dist/</code> nach <code>/web/arcade/spriteeditor/</code> kopieren.</li>
+      <li>Editor öffnen: <code>https://www.threadcore.de/arcade/spriteeditor/</code></li>
+      <li>Anleitung öffnen: <code>https://www.threadcore.de/arcade/spriteeditor/help/</code></li>
+    </ol>
+  </section>
+</main>
+</body>
+</html>
