@@ -1,0 +1,20 @@
+{
+  "name": "threadcore-budstorm-sprite-editor",
+  "version": "1.3.0",
+  "private": true,
+  "type": "module",
+  "description": "ThreadCore BudStorm Sprite Sheet Editor with transparency tools, hit/hurt/attack boxes and Synology deployment build.",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "build:synology": "vite build --mode synology",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {}
+}
